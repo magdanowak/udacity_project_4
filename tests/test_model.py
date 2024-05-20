@@ -30,8 +30,8 @@ def processed_data():
         categorical_features=cat_features,
         label="salary",
         training=False,
-        encoder=encoder,
-        lb=lb,
+        encoder=pickle.load(open("model/encoder.pkl", "rb")),
+        lb=pickle.load(open("model/lb.pkl", "rb")),
     )
     return (X, y)
 
