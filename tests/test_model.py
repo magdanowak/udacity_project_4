@@ -26,7 +26,12 @@ def processed_data():
     """Return a tuple containing X and y processed data."""
     data = pd.read_csv("data/census.csv")
     X, y, _, _ = process_data(
-        data, categorical_features=cat_features, label="salary", training=True
+        data, 
+        categorical_features=cat_features,
+        label="salary",
+        training=False,
+        encoder=encoder,
+        lb=lb
     )
     return (X, y)
 

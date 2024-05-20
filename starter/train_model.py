@@ -6,7 +6,12 @@ from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
 from ml.data import process_data
-from ml.model import train_model, calculate_metrics_on_slices
+from ml.model import (
+    train_model,
+    inference,
+    compute_model_metrics,
+    calculate_metrics_on_slices
+)
 
 # Add code to load in the data.
 data = pd.read_csv("data/census.csv")
@@ -49,5 +54,13 @@ with open("model/lb.pkl", "wb") as file:
     pickle.dump(lb, file)
 
 # Model metrics on slices of data
+
+preds_test = inference(model, X_test)
+precision, recall, fbeta = compute_model_metrics(y_test, preds_test)
+
+print(f"Test set precision: {precision}")
+print(f"Test set recall: {recall}")
+print(f"Test set fbeta: {fbeta}")
+
 metrics = calculate_metrics_on_slices(model, test, X_test, y_test, cat_features)
 metrics.to_csv("slice_output.txt", index=False)
