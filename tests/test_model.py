@@ -36,7 +36,7 @@ def processed_data():
 
 def test_train_model(processed_data):
     """Positive test that a model is trained."""
-    result = train_model(process_data[0], processed_data[1])
+    result = train_model(processed_data[0], processed_data[1])
     assert isinstance(result, RandomForestClassifier)
     
 @pytest.mark.parametrize(
