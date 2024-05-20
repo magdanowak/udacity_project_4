@@ -1,3 +1,4 @@
+import pandas as pd
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
 
@@ -61,14 +62,23 @@ def inference(model, X):
     return model.predict(X)
 
 
-def calculate_metrics_on_slices(model, data, X, y, feature):
+def calculate_metrics_on_slices(model, data, X, y, cat_features):
     """Calculate metrics for a model on slices by a given feature."""
-    print(f"metrics for slices of feature: {feature}")
-    slice_values = data[feature].unique()
-    for slice_value in slice_values:
-        slice_filter = data[feature] == slice_value
-        X_slice = X[slice_filter]
-        y_slice = y[slice_filter]
-        preds = inference(model, X_slice)
-        print(f"{slice_value}: ", compute_model_metrics(y_slice, preds))
-    print()
+    result = []
+
+    for feature in cat_features:
+        slice_values = data[feature].unique()
+        for slice_value in slice_values:
+            slice_filter = data[feature] == slice_value
+            X_slice = X[slice_filter]
+            y_slice = y[slice_filter]
+            preds = inference(model, X_slice)
+            precision, recall, fbeta = compute_model_metrics(y_slice, preds)
+            result.append({
+                "feature": feature,
+                "slice": slice_value,
+                "precision": precision,
+                "recall": recall,
+                "fbeta": fbeta,
+            })
+    return pd.DataFrame(result)

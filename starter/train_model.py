@@ -49,5 +49,5 @@ with open("model/lb.pkl", "wb") as file:
     pickle.dump(lb, file)
 
 # Model metrics on slices of data
-for feature in cat_features:
-    calculate_metrics_on_slices(model, test, X_test, y_test, feature)
+metrics = calculate_metrics_on_slices(model, test, X_test, y_test, cat_features)
+metrics.to_csv("slice_output.txt", index=False)
