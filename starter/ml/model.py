@@ -54,7 +54,7 @@ def inference(model, X):
 
     Inputs
     ------
-    model : RandomForestClassifier
+    model : ???
         Trained machine learning model.
     X : np.array
         Data used for prediction.
