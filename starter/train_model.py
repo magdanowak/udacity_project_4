@@ -1,12 +1,10 @@
 # Script to train machine learning model.
-import pickle
-
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
-from starter.ml.data import process_data
-from starter.ml.model import train_model
+from ml.data import process_data
+from ml.model import train_model
 
 # Add code to load in the data.
 data = pd.read_csv("data/census.csv")
@@ -40,6 +38,3 @@ X_test, y_test, _, _ = process_data(
 
 # Train and save a model.
 model = train_model(X_train, y_train)
-
-with open("model/model.pkl", "wb") as file:
-    pickle.dump(model, file)
