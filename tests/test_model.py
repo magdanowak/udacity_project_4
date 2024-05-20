@@ -1,3 +1,5 @@
+import pickle
+
 import pytest
 import numpy as np
 import pandas as pd
@@ -34,6 +36,12 @@ def processed_data():
     return (X, y)
 
 
+@pytest.fixture
+def trained_model():
+    """Return a trained model."""
+    return pickle.load(open("model/model.pkl", "rb"))
+
+
 def test_train_model(processed_data):
     """Positive test that a model is trained."""
     result = train_model(processed_data[0], processed_data[1])
@@ -54,4 +62,10 @@ def test_compute_model_metrics(y, preds, expected):
     
     result = compute_model_metrics(y, preds)
     assert result == expected
+    
+def test_inference(trained_model, processed_data):
+    """Positive test that model predicts data."""
+    result = inference(trained_model, processed_data[0])
+    assert len(result) == len(processed_data[0])
+
     
