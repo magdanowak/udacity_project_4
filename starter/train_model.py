@@ -10,7 +10,7 @@ from ml.model import (
     train_model,
     inference,
     compute_model_metrics,
-    calculate_metrics_on_slices
+    calculate_metrics_on_slices,
 )
 
 # Add code to load in the data.
@@ -40,7 +40,7 @@ X_test, y_test, _, _ = process_data(
     label="salary",
     training=False,
     encoder=encoder,
-    lb=lb
+    lb=lb,
 )
 
 # Train and save a model.

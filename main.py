@@ -25,6 +25,7 @@ cat_features = [
     "native-country",
 ]
 
+
 class ModelInput(BaseModel):
     age: int = Field(36)
     workclass: str = Field(example="State-gov")
@@ -40,26 +41,23 @@ class ModelInput(BaseModel):
     capital_loss: int = Field(example=0)
     hours_per_week: int = Field(example=40)
     native_country: str = Field(example="United-States")
-    
+
 
 @app.get("/")
 async def greet():
     """Greet users."""
     return "Hello!"
-    
+
+
 @app.post("/predict")
 async def predict(data: ModelInput):
     """Return model prediction for data."""
     data = {k.replace("_", "-"): [v] for k, v in dict(data).items()}
-        
+
     df = pd.DataFrame(data)
-    
+
     X, _, _, _ = process_data(
-        df,
-        categorical_features=cat_features,
-        training=False,
-        encoder=encoder,
-        lb=lb
+        df, categorical_features=cat_features, training=False, encoder=encoder, lb=lb
     )
-    
+
     return int(inference(model, X))

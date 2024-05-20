@@ -18,9 +18,7 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-    model = RandomForestClassifier(
-        n_estimators=50, max_depth=10, min_samples_leaf=5
-    )
+    model = RandomForestClassifier(n_estimators=50, max_depth=10, min_samples_leaf=5)
     model.fit(X_train, y_train)
     return model
 
@@ -76,11 +74,13 @@ def calculate_metrics_on_slices(model, data, X, y, cat_features):
             y_slice = y[slice_filter]
             preds = inference(model, X_slice)
             precision, recall, fbeta = compute_model_metrics(y_slice, preds)
-            result.append({
-                "feature": feature,
-                "slice": slice_value,
-                "precision": precision,
-                "recall": recall,
-                "fbeta": fbeta,
-            })
+            result.append(
+                {
+                    "feature": feature,
+                    "slice": slice_value,
+                    "precision": precision,
+                    "recall": recall,
+                    "fbeta": fbeta,
+                }
+            )
     return pd.DataFrame(result)
