@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
 from ml.data import process_data
-from ml.model import train_model
+from ml.model import train_model, calculate_metrics_on_slices
 
 # Add code to load in the data.
 data = pd.read_csv("data/census.csv")
@@ -38,3 +38,7 @@ X_test, y_test, _, _ = process_data(
 
 # Train and save a model.
 model = train_model(X_train, y_train)
+
+# Model metrics on slices of data
+for feature in cat_features:
+    calculate_metrics_on_slices(model, test, X_test, y_test, feature)

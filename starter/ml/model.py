@@ -59,3 +59,16 @@ def inference(model, X):
         Predictions from the model.
     """
     return model.predict(X)
+
+
+def calculate_metrics_on_slices(model, data, X, y, feature):
+    """Calculate metrics for a model on slices by a given feature."""
+    print(f"metrics for slices of feature: {feature}")
+    slice_values = test[feature].unique()
+    for slice_value in slice_values:
+        slice_filter = data[feature] == slice_value
+        X_slice = X[slice_filter]
+        y_slice = y[slice_filter]
+        preds = inference(model, X_slice)
+        print(f"{slice_value}: ", compute_model_metrics(y_slice, preds))
+    print()
