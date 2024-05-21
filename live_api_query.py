@@ -23,4 +23,4 @@ data = {
 if __name__ == "__main__":
     response = requests.post(url, json=data)
     print("status code: ", response.status_code)
-    print("prediction: ", response.json)
+    print("prediction: ", response.json())
