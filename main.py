@@ -29,7 +29,7 @@ cat_features = [
 class ModelInput(BaseModel):
     age: int = Field(36)
     workclass: str = Field(example="State-gov")
-    fnlwgt: int = Field(example=77516)
+    fnlgt: int = Field(example=77516)
     education: str = Field(example="Bachelors")
     education_num: int = Field(example=13)
     marital_status: str = Field(example="Never-married")
@@ -57,7 +57,11 @@ async def predict(data: ModelInput):
     df = pd.DataFrame(data)
 
     X, _, _, _ = process_data(
-        df, categorical_features=cat_features, training=False, encoder=encoder, lb=lb
+        df,
+        categorical_features=cat_features,
+        training=False,
+        encoder=encoder,
+        lb=lb
     )
 
     return int(inference(model, X))
